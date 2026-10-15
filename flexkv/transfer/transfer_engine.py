@@ -480,6 +480,7 @@ class TransferEngine:
                 dtype=self._cpu_handle.dtype,
                 num_blocks_per_file=self._ssd_handle.num_blocks_per_file,
                 cache_config=self._cache_config,
+                tp_group_size=self.model_config.effective_tp_size_per_node,
                 compressor=self._compressors["cpu_ssd"],
                 layer_groups=ssd_layer_groups,
             )
@@ -497,6 +498,7 @@ class TransferEngine:
                 dtype=self._cpu_handle.dtype,
                 num_blocks_per_file=self._ssd_handle.num_blocks_per_file,
                 cache_config=self._cache_config,
+                tp_group_size=self.model_config.effective_tp_size_per_node,
                 compressor=self._compressors["cpu_ssd"],
                 layer_groups=ssd_layer_groups,
             )
@@ -655,6 +657,7 @@ class TransferEngine:
                     dtype=self._swa_cpu_handle.dtype,
                     num_blocks_per_file=self._swa_ssd_handle.num_blocks_per_file,
                     cache_config=self._cache_config,
+                    tp_group_size=self.model_config.effective_tp_size_per_node,
                     layer_groups=self._swa_layer_groups,
                 )
                 self._register_worker(PoolId.SWA, TransferType.H2DISK, swa_h2disk_worker)
@@ -670,6 +673,7 @@ class TransferEngine:
                     dtype=self._swa_cpu_handle.dtype,
                     num_blocks_per_file=self._swa_ssd_handle.num_blocks_per_file,
                     cache_config=self._cache_config,
+                    tp_group_size=self.model_config.effective_tp_size_per_node,
                     layer_groups=self._swa_layer_groups,
                 )
                 self._register_worker(PoolId.SWA, TransferType.DISK2H, swa_disk2h_worker)
